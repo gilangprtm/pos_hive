@@ -1,8 +1,12 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:pos_hive/app/utils/extension/box_extension.dart';
 
+import '../../../../service/categories_service/categories_service.dart';
 import '../../../../utils/helpers/helpers.dart';
+import '../../../../utils/theme/theme.dart';
 import '../controllers/mobile_m_dashboard_controller.dart';
 
 class MobileMDashboardView extends GetView<MobileMDashboardController> {
@@ -98,7 +102,7 @@ class MobileMDashboardView extends GetView<MobileMDashboardController> {
                               shadowColor: Colors.transparent,
                               elevation: 0.0,
                             ),
-                            onPressed: () => item["onTap"](),
+                            onPressed: item["onTap"],
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -128,6 +132,74 @@ class MobileMDashboardView extends GetView<MobileMDashboardController> {
                   );
                 },
               ),
+              30.heightBox,
+              Text("Categories"),
+              Obx(() {
+                return controller.isLoad.value == false
+                    ? Center(
+                        child: CircularProgressIndicator(
+                        color: AppColor.primary,
+                      ))
+                    : GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 1,
+                          crossAxisSpacing: 1,
+                        ),
+                        itemCount: CategoriesService.categories.length,
+                        shrinkWrap: true,
+                        physics: const ScrollPhysics(),
+                        itemBuilder: (BuildContext context, int index) {
+                          var size = context.width / 2;
+                          var item = CategoriesService.categories[index];
+                          return Container(
+                            padding: EdgeInsets.all(5),
+                            width: size,
+                            height: size,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: AppHelper.cicularRadius,
+                                ),
+                                // foregroundColor: Colors.blueGrey,
+                                animationDuration:
+                                    const Duration(milliseconds: 1000),
+                                // backgroundColor: AppColor.grey1,
+                                // splashFactory: InkSplash.splashFactory,
+                                shadowColor: Colors.transparent,
+                                elevation: 0.0,
+                              ),
+                              onPressed: () {
+                                c.productCategories(item['label']);
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    item["icon"],
+                                    width: 30.0,
+                                  ),
+                                  const SizedBox(
+                                    height: 6.0,
+                                  ),
+                                  Text(
+                                    "${item["label"]}",
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontSize: 11.0,
+                                      // color: AppColor.lightgrey,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+              }),
             ],
           ),
         ),

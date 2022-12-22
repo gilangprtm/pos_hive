@@ -6,8 +6,10 @@ import '../../../../utils/helpers/helpers.dart';
 
 class MobileMProductListController extends GetxController {
   RxBool isLoad = false.obs;
+  RxString item = "".obs;
   @override
   void onInit() {
+    hasArg();
     refresh();
     super.onInit();
   }
@@ -50,5 +52,14 @@ class MobileMProductListController extends GetxController {
         refresh(),
       },
     );
+  }
+
+  void hasArg() {
+    item.value = Get.arguments;
+    print(Get.arguments);
+    if (item.value == null) {
+      item.value = 'All Product';
+      print(item);
+    }
   }
 }

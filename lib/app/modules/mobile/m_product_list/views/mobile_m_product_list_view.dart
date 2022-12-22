@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -12,7 +13,9 @@ class MobileMProductListView extends GetView<MobileMProductListController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Product List'),
+        title: Obx(() {
+          return Text(controller.item.value);
+        }),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(

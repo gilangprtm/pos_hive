@@ -19,7 +19,6 @@ class AppHelper {
     String? textConfirm,
     String? textCancel,
     Color? color,
-    Function? onTap,
   }) async {
     return await Get.dialog<bool?>(
       AlertDialog(
@@ -121,20 +120,32 @@ class AppHelper {
     );
   }
 
-  static Future dialogCustomWidget(List<Widget> children) async {
-    await Get.dialog(
+  static Future dialogCustomWidget(
+      {List<Widget>? children, String? yes}) async {
+    return await Get.dialog<bool?>(
       AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: AppHelper.cicularRadius),
-        content: Column(mainAxisSize: MainAxisSize.min, children: children),
+        content: Column(mainAxisSize: MainAxisSize.min, children: children!),
         contentPadding:
             const EdgeInsets.only(bottom: 0, top: 20, right: 10, left: 10),
         actionsPadding:
             const EdgeInsets.only(top: 0, bottom: 5, left: 20, right: 20),
         actions: [
           TextButton(
-            child: Text('close'.tr),
+            child: Text('close'.tr, style: TextStyle(color: AppColor.grey1)),
             onPressed: () {
               Get.back(result: false);
+            },
+          ),
+          TextButton(
+            child: Text(
+              yes ?? "Yes",
+              style: TextStyle(
+                color: AppColor.primary,
+              ),
+            ),
+            onPressed: () {
+              Get.back(result: true);
             },
           ),
         ],

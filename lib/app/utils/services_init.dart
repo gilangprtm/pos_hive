@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:pos_hive/app/service/categories_service/categories_service.dart';
 
 import '../service/pos_service/product_service.dart';
 import '../service/pos_service/purchase_order_service.dart';
@@ -29,6 +30,7 @@ class ProjectService {
     await ProductService.loadDataFromDB();
     await PurchaseOrderService.loadDataFromDB();
     await SalesOrderService.loadDataFromDB();
+    await CategoriesService.loadDataFromDB();
 
     // date format locale
     initializeDateFormatting();

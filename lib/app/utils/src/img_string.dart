@@ -10,4 +10,5 @@ class ImgString {
   static const String purchase = 'assets/icons/purchase.png';
   static const String sale = 'assets/icons/sales.png';
   static const String report = 'assets/icons/report.png';
+  static const String settings = 'assets/icons/settings.png';
 }
