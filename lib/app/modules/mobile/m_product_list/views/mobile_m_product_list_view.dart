@@ -64,6 +64,8 @@ class MobileMProductListView extends GetView<MobileMProductListController> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text("Rp. " +
                                           AppFormat.toCurrency(item.buyprice)),
@@ -71,9 +73,15 @@ class MobileMProductListView extends GetView<MobileMProductListController> {
                                           AppFormat.toCurrency(item.sellprice)),
                                     ],
                                   ),
-                                  Text(item.stock == 0
-                                      ? "Empty stock"
-                                      : "${item.stock}")
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 5),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: AppColor.primary,
+                                    ),
+                                    child: Text("${item.stock}"),
+                                  ),
                                 ],
                               ),
                             ),

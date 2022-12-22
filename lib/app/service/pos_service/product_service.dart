@@ -9,6 +9,7 @@ class ProductService {
 
   static saveToLocalStorage() async {
     await mainStorage.put("products", productList);
+    loadDataFromDB();
   }
 
   static loadDataFromDB() async {

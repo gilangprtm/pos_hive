@@ -16,7 +16,6 @@ class MobileMPurchaseOrderController extends GetxController {
 
   void refresh() {
     isLoad.value = false;
-    ProductService.loadDataFromDB();
     isLoad.value = true;
   }
 
