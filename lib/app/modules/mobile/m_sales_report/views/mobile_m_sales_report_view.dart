@@ -24,6 +24,7 @@ class MobileMSalesReportView extends GetView<MobileMSalesReportController> {
                 lastDay: DateTime(controller.focusDate.value.year + 10, 1, 1),
                 focusedDay: controller.focusDate.value,
                 calendarStyle: const CalendarStyle(
+                  weekendTextStyle: TextStyle(color: AppColor.red),
                   todayDecoration: const BoxDecoration(
                       color: AppColor.secondary, shape: BoxShape.circle),
                   selectedDecoration: const BoxDecoration(

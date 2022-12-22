@@ -20,7 +20,7 @@ void main() async {
       ),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
-      theme: lightTheme(),
+      theme: darkTheme(),
     ),
   );
 }
