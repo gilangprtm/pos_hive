@@ -16,20 +16,21 @@ class MobileMProductFormView extends GetView<MobileMProductFormController> {
     return Obx(() {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Add Product'),
+          title: Text('Product'),
           centerTitle: true,
           actions: [
-            controller.isEditMode.value == false
-                ? Container()
-                : PopupMenuButton(
-                    onSelected: (String value) {
-                      controller.menuButtonAction(value);
-                    },
-                    itemBuilder: (BuildContext context) => [
-                      const PopupMenuItem(value: '1', child: Text('Edit')),
-                      const PopupMenuItem(value: '2', child: Text('Delete')),
-                    ],
-                  ),
+            Visibility(
+              visible: controller.isDetail.value,
+              child: PopupMenuButton(
+                onSelected: (String value) {
+                  controller.menuButtonAction(value);
+                },
+                itemBuilder: (BuildContext context) => [
+                  const PopupMenuItem(value: '1', child: Text('Edit')),
+                  const PopupMenuItem(value: '2', child: Text('Delete')),
+                ],
+              ),
+            ),
           ],
         ),
         body: SingleChildScrollView(

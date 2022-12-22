@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../../../models/product_model.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../service/pos_service/product_service.dart';
 import '../../../../utils/helpers/helpers.dart';
@@ -24,6 +25,7 @@ class MobileMProductListController extends GetxController {
 
   void refresh() {
     isLoad.value = false;
+    ProductService.loadDataFromDB();
     isLoad.value = true;
   }
 
@@ -46,7 +48,7 @@ class MobileMProductListController extends GetxController {
     );
   }
 
-  void toEditForm(Map item) {
+  void toEditForm(ProductModel item) {
     Get.toNamed(Routes.MOBILE_M_PRODUCT_FORM, arguments: item)!.then(
       (value) => {
         refresh(),
@@ -56,10 +58,8 @@ class MobileMProductListController extends GetxController {
 
   void hasArg() {
     item.value = Get.arguments;
-    print(Get.arguments);
     if (item.value == null) {
       item.value = 'All Product';
-      print(item);
     }
   }
 }

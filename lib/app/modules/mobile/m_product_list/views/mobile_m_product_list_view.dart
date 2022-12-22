@@ -34,11 +34,11 @@ class MobileMProductListView extends GetView<MobileMProductListController> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView.builder(
-                    itemCount: ProductService.productList.length,
+                    itemCount: ProductService.products.length,
                     shrinkWrap: true,
                     physics: const ScrollPhysics(),
                     itemBuilder: (context, index) {
-                      var item = ProductService.productList[index];
+                      var item = ProductService.products[index];
                       return InkWell(
                         onTap: () {
                           controller.toEditForm(item);
@@ -47,7 +47,7 @@ class MobileMProductListView extends GetView<MobileMProductListController> {
                           key: UniqueKey(),
                           onDismissed: (detail) {},
                           confirmDismiss: (direction) async {
-                            controller.deleteItem(item['id']);
+                            controller.deleteItem(item.id!);
                             return Future.value(false);
                           },
                           child: Card(
@@ -55,10 +55,10 @@ class MobileMProductListView extends GetView<MobileMProductListController> {
                               leading: CircleAvatar(
                                 backgroundColor: Colors.grey[200],
                                 backgroundImage: NetworkImage(
-                                  item["photo"],
+                                  item.photo!,
                                 ),
                               ),
-                              title: Text("${item["product_name"]}"),
+                              title: Text("${item.productname}"),
                               subtitle: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -66,16 +66,14 @@ class MobileMProductListView extends GetView<MobileMProductListController> {
                                   Column(
                                     children: [
                                       Text("Rp. " +
-                                          AppFormat.toCurrency(
-                                              item['buyprice'])),
+                                          AppFormat.toCurrency(item.buyprice)),
                                       Text("Rp. " +
-                                          AppFormat.toCurrency(
-                                              item['sellprice'])),
+                                          AppFormat.toCurrency(item.sellprice)),
                                     ],
                                   ),
-                                  Text(item["stock"] == 0
+                                  Text(item.stock == 0
                                       ? "Empty stock"
-                                      : "${item["stock"]}")
+                                      : "${item.stock}")
                                 ],
                               ),
                             ),

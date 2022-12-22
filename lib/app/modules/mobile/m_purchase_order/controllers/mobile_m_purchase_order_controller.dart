@@ -16,6 +16,7 @@ class MobileMPurchaseOrderController extends GetxController {
 
   void refresh() {
     isLoad.value = false;
+    ProductService.loadDataFromDB();
     isLoad.value = true;
   }
 
@@ -31,6 +32,7 @@ class MobileMPurchaseOrderController extends GetxController {
         productList: productList,
       );
       Get.back();
+      refresh();
       AppHelper.dialogSuccess("Your order is success!");
     }
   }

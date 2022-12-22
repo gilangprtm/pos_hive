@@ -2,24 +2,27 @@ class ProductModel {
   ProductModel({
     this.id,
     this.photo,
-    this.productName,
-    this.price,
+    this.productname,
+    this.buyprice,
+    this.sellprice,
     this.description,
-    this.qty,
+    this.stock,
   });
 
   String? id;
   String? photo;
-  String? productName;
-  double? price;
+  String? productname;
+  double? buyprice;
+  double? sellprice;
   String? description;
-  int? qty;
+  int? stock;
   static ProductModel fromDynamic(dynamic json) => ProductModel(
         id: json["id"],
         photo: json["photo"],
-        productName: json["product_name"],
-        price: json["price"],
+        productname: json["product_name"],
+        buyprice: json["buyprice"],
+        sellprice: json["sellprice"],
         description: json["description"],
-        qty: json["qty"],
+        stock: json["stock"],
       );
 }

@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 
+import '../../../../models/product_model.dart';
 import '../../../../service/pos_service/product_service.dart';
 
 class MobileMProductFormController extends GetxController {
-  Map? item;
+  ProductModel? item;
 
   @override
   void onInit() {
@@ -33,23 +34,21 @@ class MobileMProductFormController extends GetxController {
 
   void hasArg() {
     item = Get.arguments;
-    print(item != null);
     if (item != null) {
       isDetail.value = true;
-      photo = item!["photo"];
-      productName = item!["product_name"];
-      buyprice = item!["buyprice"];
-      sellprice = item!["sellprice"];
-      description = item!["description"];
-      stock = item!['stock'];
+      photo = item!.photo;
+      productName = item!.productname;
+      buyprice = item!.buyprice;
+      sellprice = item!.sellprice;
+      description = item!.description;
+      stock = item!.stock;
     }
-    print(isDetail.value);
   }
 
   void doSave() async {
     if (isEditMode.value) {
       await ProductService.updateProduct(
-        id: item!['id'],
+        id: item!.id!,
         photo: photo!,
         productName: productName!,
         buyprice: buyprice!,
@@ -66,6 +65,7 @@ class MobileMProductFormController extends GetxController {
         description: description!,
       );
     }
+
     Get.back();
   }
 
@@ -74,7 +74,7 @@ class MobileMProductFormController extends GetxController {
       isDetail.value = false;
       isEditMode.value = true;
     } else if (value == '2') {
-      var id = item!['id'];
+      var id = item!.id!;
       ProductService.deleteProduct(id);
       Get.back();
     }

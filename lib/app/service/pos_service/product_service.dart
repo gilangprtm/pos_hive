@@ -1,9 +1,11 @@
 import 'package:uuid/uuid.dart';
 
+import '../../models/product_model.dart';
 import '../service_data.dart';
 
 class ProductService {
   static List productList = [];
+  static List<ProductModel> products = [];
 
   static saveToLocalStorage() async {
     await mainStorage.put("products", productList);
@@ -11,6 +13,7 @@ class ProductService {
 
   static loadDataFromDB() async {
     productList = await mainStorage.get("products") ?? [];
+    products = productList.map((e) => ProductModel.fromDynamic(e)).toList();
   }
 
   static clearQty() async {
