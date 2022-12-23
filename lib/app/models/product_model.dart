@@ -6,6 +6,7 @@ class ProductModel {
     this.buyprice,
     this.sellprice,
     this.description,
+    this.categorie,
     this.stock,
   });
 
@@ -15,6 +16,7 @@ class ProductModel {
   double? buyprice;
   double? sellprice;
   String? description;
+  String? categorie;
   int? stock;
   static ProductModel fromDynamic(dynamic json) => ProductModel(
         id: json["id"],
@@ -23,6 +25,7 @@ class ProductModel {
         buyprice: json["buyprice"],
         sellprice: json["sellprice"],
         description: json["description"],
+        categorie: json["categorie"],
         stock: json["stock"],
       );
 }

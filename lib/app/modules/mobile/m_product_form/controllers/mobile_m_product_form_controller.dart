@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
+import 'package:pos_hive/app/utils/helpers/helpers.dart';
 
 import '../../../../models/product_model.dart';
 import '../../../../service/pos_service/product_service.dart';
 
 class MobileMProductFormController extends GetxController {
+  String? tag;
   ProductModel? item;
+  String? label;
 
   @override
   void onInit() {
@@ -26,6 +29,17 @@ class MobileMProductFormController extends GetxController {
   //   return widget.item != null;
   // }
 
+  void checkNullContent() {
+    if (photo == null ||
+        productName == null ||
+        buyprice == null ||
+        sellprice == null ||
+        description == null) {
+      AppHelper.dialogWarning("Please fill all content");
+    }
+    ;
+  }
+
   @override
   void onClose() {
     isDetail.value = false;
@@ -33,7 +47,18 @@ class MobileMProductFormController extends GetxController {
   }
 
   void hasArg() {
-    item = Get.arguments;
+    tag = Get.arguments[0];
+
+    if (tag == "add") {
+      label = Get.arguments[1];
+    } else if (tag == "edit") {
+      item = Get.arguments[1];
+      label = Get.arguments[2];
+    }
+    if (label == "") {
+      label = "Product";
+    }
+
     if (item != null) {
       isDetail.value = true;
       photo = item!.photo;
@@ -46,6 +71,7 @@ class MobileMProductFormController extends GetxController {
   }
 
   void doSave() async {
+    checkNullContent();
     if (isEditMode.value) {
       await ProductService.updateProduct(
         id: item!.id!,
@@ -54,6 +80,7 @@ class MobileMProductFormController extends GetxController {
         buyprice: buyprice!,
         sellprice: sellprice!,
         description: description!,
+        categorie: label ?? "",
         stock: stock!,
       );
     } else {
@@ -63,6 +90,7 @@ class MobileMProductFormController extends GetxController {
         buyprice: buyprice!,
         sellprice: sellprice!,
         description: description!,
+        categorie: label ?? "",
       );
     }
 

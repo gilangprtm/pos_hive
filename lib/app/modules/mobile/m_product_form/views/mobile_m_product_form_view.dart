@@ -16,7 +16,7 @@ class MobileMProductFormView extends GetView<MobileMProductFormController> {
     return Obx(() {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Product'),
+          title: Text(controller.label ?? "Product"),
           centerTitle: true,
           actions: [
             Visibility(

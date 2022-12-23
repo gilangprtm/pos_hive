@@ -7,7 +7,9 @@ import '../../../../utils/helpers/helpers.dart';
 
 class MobileMProductListController extends GetxController {
   RxBool isLoad = false.obs;
-  RxString item = "".obs;
+  bool? allProduct;
+  String? label;
+  List<ProductModel>? products;
   @override
   void onInit() {
     hasArg();
@@ -23,9 +25,15 @@ class MobileMProductListController extends GetxController {
   @override
   void onClose() {}
 
-  void refresh() {
+  void refresh() async {
     isLoad.value = false;
-    ProductService.loadDataFromDB();
+    await ProductService.loadDataFromDB();
+    if (allProduct == true) {
+      products = ProductService.products;
+    } else {
+      products =
+          ProductService.products.where((e) => e.categorie == label).toList();
+    }
     isLoad.value = true;
   }
 
@@ -40,16 +48,17 @@ class MobileMProductListController extends GetxController {
     }
   }
 
-  void toAddForm() {
-    Get.toNamed(Routes.MOBILE_M_PRODUCT_FORM)!.then(
+  void toAddForm(String tag, String label) {
+    Get.toNamed(Routes.MOBILE_M_PRODUCT_FORM, arguments: [tag, label])!.then(
       (value) => {
         refresh(),
       },
     );
   }
 
-  void toEditForm(ProductModel item) {
-    Get.toNamed(Routes.MOBILE_M_PRODUCT_FORM, arguments: item)!.then(
+  void toEditForm(String tag, ProductModel item, String label) {
+    Get.toNamed(Routes.MOBILE_M_PRODUCT_FORM, arguments: [tag, item, label])!
+        .then(
       (value) => {
         refresh(),
       },
@@ -57,9 +66,11 @@ class MobileMProductListController extends GetxController {
   }
 
   void hasArg() {
-    item.value = Get.arguments;
-    if (item.value == null) {
-      item.value = 'All Product';
+    label = Get.arguments;
+    if (label == null) {
+      allProduct = true;
+    } else {
+      allProduct = false;
     }
   }
 }

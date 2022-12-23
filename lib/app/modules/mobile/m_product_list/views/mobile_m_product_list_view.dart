@@ -13,15 +13,13 @@ class MobileMProductListView extends GetView<MobileMProductListController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Obx(() {
-          return Text(controller.item.value);
-        }),
+        title: Text(controller.label ?? "All Product"),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          controller.toAddForm();
+          controller.toAddForm("add", controller.label ?? "");
         },
       ),
       body: Obx(() {
@@ -34,14 +32,15 @@ class MobileMProductListView extends GetView<MobileMProductListController> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView.builder(
-                    itemCount: ProductService.products.length,
+                    itemCount: controller.products!.length,
                     shrinkWrap: true,
                     physics: const ScrollPhysics(),
                     itemBuilder: (context, index) {
-                      var item = ProductService.products[index];
+                      var item = controller.products![index];
                       return InkWell(
                         onTap: () {
-                          controller.toEditForm(item);
+                          controller.toEditForm(
+                              "edit", item, controller.label ?? "Product");
                         },
                         child: Dismissible(
                           key: UniqueKey(),

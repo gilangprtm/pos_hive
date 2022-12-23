@@ -13,12 +13,12 @@ class CategoriesService {
   }
 
   static void addCategorie({
-    required String tag,
+    required String label,
   }) {
     categories.add(
       {
         "icon": ImgString.product,
-        "label": tag,
+        "label": label,
       },
     );
     saveToLocalStorage();

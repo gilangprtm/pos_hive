@@ -15,6 +15,7 @@ class ProductService {
   static loadDataFromDB() async {
     productList = await mainStorage.get("products") ?? [];
     products = productList.map((e) => ProductModel.fromDynamic(e)).toList();
+    // print(productList);
   }
 
   static clearQty() async {
@@ -45,6 +46,7 @@ class ProductService {
     required double buyprice,
     required double sellprice,
     required String description,
+    required String categorie,
   }) {
     productList.add({
       "id": const Uuid().v4(),
@@ -53,6 +55,7 @@ class ProductService {
       "buyprice": buyprice,
       "sellprice": sellprice,
       "description": description,
+      "categorie": categorie,
       "stock": 0,
     });
     saveToLocalStorage();
@@ -65,6 +68,7 @@ class ProductService {
     required double buyprice,
     required double sellprice,
     required String description,
+    required String categorie,
     required int stock,
   }) {
     var targetIndex = productList.indexWhere((product) => product["id"] == id);
@@ -75,6 +79,7 @@ class ProductService {
       "buyprice": buyprice,
       "sellprice": sellprice,
       "description": description,
+      "categorie": categorie,
       "stock": stock,
     };
     saveToLocalStorage();
@@ -106,6 +111,11 @@ class ProductService {
     var newStock = currentStock - qty;
     productList[targetIndex]["stock"] = newStock;
 
+    saveToLocalStorage();
+  }
+
+  static void clearCategories() {
+    productList.clear();
     saveToLocalStorage();
   }
 }

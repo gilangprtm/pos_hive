@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
+import 'package:pos_hive/app/service/pos_service/product_service.dart';
 import 'package:pos_hive/app/utils/extension/box_extension.dart';
 import 'package:pos_hive/app/utils/widget/app_button.dart';
 
@@ -43,7 +44,7 @@ class MobileMDashboardController extends GetxController {
     menus.addAll([
       {
         "icon": ImgString.product,
-        "label": "Product\n",
+        "label": "All\nProduct",
         "onTap": () {
           Get.toNamed(Routes.MOBILE_M_PRODUCT_LIST);
         }
@@ -98,7 +99,9 @@ class MobileMDashboardController extends GetxController {
               Expanded(
                 child: AppButton(
                   text: "Clear All Product",
-                  onTap: () {},
+                  onTap: () {
+                    isClearProduct.value = true;
+                  },
                 ),
               ),
               5.widthBox,
@@ -138,7 +141,7 @@ class MobileMDashboardController extends GetxController {
       if (productName == null) {
       } else {
         CategoriesService.addCategorie(
-          tag: productName!,
+          label: productName!,
         );
         refresh();
         productName = null;
@@ -147,6 +150,11 @@ class MobileMDashboardController extends GetxController {
         CategoriesService.clearCategories();
         refresh();
         isClearCategories.value = false;
+      }
+      if (isClearProduct.value == true) {
+        ProductService.clearCategories();
+        refresh();
+        isClearProduct.value = false;
       }
     } else {
       isClearCategories.value = false;
@@ -167,7 +175,6 @@ class MobileMDashboardController extends GetxController {
   }
 
   void productCategories(String tag) {
-    print(tag);
     Get.toNamed(Routes.MOBILE_M_PRODUCT_LIST, arguments: tag);
   }
 }
