@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:pos_hive/app/utils/extension/box_extension.dart';
 
 import '../../../../service/pos_service/product_service.dart';
 import '../../../../utils/helpers/app_format.dart';
@@ -99,10 +100,20 @@ class MobileMSalesTransactionView
                               subtitle: Text(
                                   "Rp. ${"${AppFormat.toCurrency(item['sellprice'])}"}"),
                               trailing: SizedBox(
-                                width: 120.0,
+                                width: 150.0,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15, vertical: 5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColor.primary,
+                                      ),
+                                      child: Text("${item['stock']}"),
+                                    ),
+                                    15.widthBox,
                                     CircleAvatar(
                                       backgroundColor: Colors.blueGrey,
                                       radius: 12.0,
@@ -138,6 +149,9 @@ class MobileMSalesTransactionView
                                       child: Center(
                                         child: IconButton(
                                           onPressed: () {
+                                            if (item["stock"] == item["qty"]) {
+                                              return null;
+                                            }
                                             item["qty"]++;
                                             controller.refresh();
                                           },
