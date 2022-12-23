@@ -29,4 +29,9 @@ class SalesOrderService {
       );
     }
   }
+
+  static void clearSalesOrder() {
+    salesOrderList.clear();
+    saveToLocalStorage();
+  }
 }

@@ -29,4 +29,9 @@ class PurchaseOrderService {
       );
     }
   }
+
+  static void clearPurchaseOrder() {
+    purchaseOrderList.clear();
+    saveToLocalStorage();
+  }
 }

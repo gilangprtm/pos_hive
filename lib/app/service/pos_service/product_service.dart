@@ -114,7 +114,7 @@ class ProductService {
     saveToLocalStorage();
   }
 
-  static void clearCategories() {
+  static void clearProduct() {
     productList.clear();
     saveToLocalStorage();
   }

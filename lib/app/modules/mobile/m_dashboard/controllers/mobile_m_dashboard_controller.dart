@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:pos_hive/app/service/pos_service/product_service.dart';
+import 'package:pos_hive/app/service/pos_service/purchase_order_service.dart';
+import 'package:pos_hive/app/service/pos_service/sales_order_service.dart';
 import 'package:pos_hive/app/utils/extension/box_extension.dart';
 import 'package:pos_hive/app/utils/widget/app_button.dart';
 
@@ -17,7 +19,7 @@ import '../../../../utils/widget/validator.dart';
 class MobileMDashboardController extends GetxController {
   final List menus = [];
   RxBool isLoad = false.obs;
-  RxBool isClearProduct = false.obs;
+  RxBool isClearData = false.obs;
   RxBool isClearCategories = false.obs;
   String? productName;
 
@@ -98,16 +100,16 @@ class MobileMDashboardController extends GetxController {
             children: [
               Expanded(
                 child: AppButton(
-                  text: "Clear All Product",
+                  text: "Clear Data",
                   onTap: () {
-                    isClearProduct.value = true;
+                    isClearData.value = true;
                   },
                 ),
               ),
               5.widthBox,
               Expanded(
                 child: AppButton(
-                  text: "Clear All Categories",
+                  text: "Clear Categories",
                   onTap: () {
                     isClearCategories.value = true;
                   },
@@ -151,10 +153,13 @@ class MobileMDashboardController extends GetxController {
         refresh();
         isClearCategories.value = false;
       }
-      if (isClearProduct.value == true) {
-        ProductService.clearCategories();
+      if (isClearData.value == true) {
+        ProductService.clearProduct();
+        PurchaseOrderService.clearPurchaseOrder();
+        SalesOrderService.clearSalesOrder();
+        CategoriesService.clearCategories();
         refresh();
-        isClearProduct.value = false;
+        isClearData.value = false;
       }
     } else {
       isClearCategories.value = false;
