@@ -3,7 +3,7 @@ import 'theme.dart';
 
 class AppFont {
   static TextStyle get h1 => const TextStyle(
-        fontSize: 60,
+        fontSize: 20,
         fontWeight: FontWeight.w700,
       );
 

@@ -1,3 +1,4 @@
+import '../../utils/helpers/app_format.dart';
 import '../service_data.dart';
 import 'product_service.dart';
 
@@ -9,6 +10,7 @@ class SalesOrderService {
 
   static loadDataFromDB() async {
     salesOrderList = await mainStorage.get("sales_orders") ?? [];
+    print(salesOrderList);
   }
 
   static checkout({
@@ -16,7 +18,7 @@ class SalesOrderService {
   }) async {
     //menyimpan data ke db purchase
     salesOrderList.add({
-      "created_at": DateTime.now().toString(),
+      "created_at": AppFormat.dateToString(DateTime.now()),
       "items": productList,
       "total": ProductService.totalsell,
     });

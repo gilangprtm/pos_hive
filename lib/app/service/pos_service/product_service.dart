@@ -15,7 +15,6 @@ class ProductService {
   static loadDataFromDB() async {
     productList = await mainStorage.get("products") ?? [];
     products = productList.map((e) => ProductModel.fromDynamic(e)).toList();
-    // print(productList);
   }
 
   static clearQty() async {

@@ -1,3 +1,5 @@
+import 'package:pos_hive/app/utils/helpers/app_format.dart';
+
 class ProductModel {
   ProductModel({
     this.id,
@@ -8,6 +10,7 @@ class ProductModel {
     this.description,
     this.categorie,
     this.stock,
+    this.qty,
   });
 
   String? id;
@@ -18,6 +21,7 @@ class ProductModel {
   String? description;
   String? categorie;
   int? stock;
+  int? qty;
   static ProductModel fromDynamic(dynamic json) => ProductModel(
         id: json["id"],
         photo: json["photo"],
@@ -27,5 +31,28 @@ class ProductModel {
         description: json["description"],
         categorie: json["categorie"],
         stock: json["stock"],
+        qty: json["qty"],
       );
+}
+
+class OrderModel {
+  DateTime? createdAt;
+  List<ProductModel>? item;
+  double? total;
+
+  static OrderModel fromDynamic(dynamic dynamicData) {
+    final model = OrderModel();
+
+    model.createdAt = AppFormat.stringToDateTime(dynamicData['created_at']);
+    if (dynamicData['items'] != null) {
+      final detailT = dynamicData['items'] as List;
+      model.item = [];
+      for (var i = 0; i < detailT.length; i++) {
+        model.item!.add(ProductModel.fromDynamic(detailT[i]));
+      }
+    }
+    model.total = AppFormat.dynamicToDouble(dynamicData['total']);
+
+    return model;
+  }
 }

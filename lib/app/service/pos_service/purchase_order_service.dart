@@ -1,3 +1,5 @@
+import 'package:pos_hive/app/utils/helpers/app_format.dart';
+
 import '../service_data.dart';
 import 'product_service.dart';
 
@@ -16,7 +18,7 @@ class PurchaseOrderService {
   }) async {
     //menyimpan data ke db purchase
     purchaseOrderList.add({
-      "created_at": DateTime.now().toString(),
+      "created_at": AppFormat.dateToString(DateTime.now()),
       "items": productList,
       "total": ProductService.totalbuy,
     });
