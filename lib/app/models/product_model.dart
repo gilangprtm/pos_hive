@@ -36,6 +36,11 @@ class ProductModel {
 }
 
 class OrderModel {
+  OrderModel({
+    this.createdAt,
+    this.item,
+    this.total,
+  });
   DateTime? createdAt;
   List<ProductModel>? item;
   double? total;
@@ -55,4 +60,23 @@ class OrderModel {
 
     return model;
   }
+}
+
+class ProductNameModel {
+  ProductNameModel({
+    this.id,
+    this.productname,
+    this.qty,
+  });
+
+  String? id;
+
+  String? productname;
+
+  int? qty;
+  static ProductNameModel fromDynamic(dynamic json) => ProductNameModel(
+        id: json["id"],
+        productname: json["product_name"],
+        qty: json["qty"],
+      );
 }

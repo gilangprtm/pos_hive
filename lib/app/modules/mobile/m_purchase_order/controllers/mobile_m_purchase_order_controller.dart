@@ -26,12 +26,14 @@ class MobileMPurchaseOrderController extends GetxController {
     );
     if (r == true) {
       var productList =
-          ProductService.productList.where((p) => p["qty"] > 0).toList();
+          ProductService.productList.where((p) => p["qty"] >= 1).toList();
+      print(productList);
       await PurchaseOrderService.checkout(
         productList: productList,
       );
-      Get.back();
+
       refresh();
+      Get.back();
       AppHelper.dialogSuccess("Your order is success!");
     }
   }

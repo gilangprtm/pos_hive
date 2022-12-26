@@ -75,11 +75,11 @@ class MobileMSalesReportView extends GetView<MobileMSalesReportController> {
                 child: SingleChildScrollView(
                   controller: ScrollController(),
                   child: ListView.builder(
-                    itemCount: controller.onDayList.length,
+                    itemCount: controller.list.length,
                     shrinkWrap: true,
                     physics: const ScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
-                      var items = controller.onDayList[index];
+                      var items = controller.list[index];
                       return Padding(
                         padding:
                             const EdgeInsets.only(top: 10, left: 10, right: 10),
@@ -96,8 +96,8 @@ class MobileMSalesReportView extends GetView<MobileMSalesReportController> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("${items.item?.first.productname}"),
-                                  Text("${items.item?.first.qty}")
+                                  Text("${items.productname}"),
+                                  Text("${items.qty}"),
                                 ],
                               ),
                             ),

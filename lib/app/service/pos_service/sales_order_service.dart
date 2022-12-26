@@ -10,7 +10,6 @@ class SalesOrderService {
 
   static loadDataFromDB() async {
     salesOrderList = await mainStorage.get("sales_orders") ?? [];
-    print(salesOrderList);
   }
 
   static checkout({

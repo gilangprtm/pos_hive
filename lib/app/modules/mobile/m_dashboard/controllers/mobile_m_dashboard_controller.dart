@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
+import 'package:pos_hive/app/service/pos_service/product_names_service.dart';
 import 'package:pos_hive/app/service/pos_service/product_service.dart';
 import 'package:pos_hive/app/service/pos_service/purchase_order_service.dart';
 import 'package:pos_hive/app/service/pos_service/sales_order_service.dart';
@@ -158,6 +159,7 @@ class MobileMDashboardController extends GetxController {
         PurchaseOrderService.clearPurchaseOrder();
         SalesOrderService.clearSalesOrder();
         CategoriesService.clearCategories();
+        ProductNameService.clearProductNames();
         refresh();
         isClearData.value = false;
       }

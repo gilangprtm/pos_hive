@@ -7,6 +7,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:pos_hive/app/service/categories_service/categories_service.dart';
 
+import '../service/pos_service/product_names_service.dart';
 import '../service/pos_service/product_service.dart';
 import '../service/pos_service/purchase_order_service.dart';
 import '../service/pos_service/sales_order_service.dart';
@@ -28,6 +29,7 @@ class ProjectService {
     mainStorage = await Hive.openBox('mainStorage');
 
     await ProductService.loadDataFromDB();
+    await ProductNameService.loadDataFromDB();
     await PurchaseOrderService.loadDataFromDB();
     await SalesOrderService.loadDataFromDB();
     await CategoriesService.loadDataFromDB();

@@ -86,7 +86,7 @@ class MobileMPurchaseOrderView extends GetView<MobileMPurchaseOrderController> {
                         physics: const ScrollPhysics(),
                         itemBuilder: (context, index) {
                           var item = ProductService.productList[index];
-                          item["qty"] = item["qty"] ?? 0;
+                          item["qty"] = item["qty"];
                           return Card(
                             child: ListTile(
                               leading: CircleAvatar(

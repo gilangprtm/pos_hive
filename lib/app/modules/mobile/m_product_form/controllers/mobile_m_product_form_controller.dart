@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pos_hive/app/service/pos_service/product_names_service.dart';
 import 'package:pos_hive/app/utils/helpers/helpers.dart';
 
 import '../../../../models/product_model.dart';
@@ -92,9 +93,16 @@ class MobileMProductFormController extends GetxController {
         description: description!,
         categorie: label ?? "",
       );
+      addProductNames();
     }
-
     Get.back();
+  }
+
+  void addProductNames() async {
+    await ProductNameService.addProductNames(
+      id: ProductService.productList.last['id'],
+      name: ProductService.productList.last['product_name'],
+    );
   }
 
   void menuButtonAction(String value) {

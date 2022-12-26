@@ -11,6 +11,7 @@ class PurchaseOrderService {
 
   static loadDataFromDB() async {
     purchaseOrderList = await mainStorage.get("purchase_orders") ?? [];
+    print(purchaseOrderList);
   }
 
   static checkout({
@@ -23,7 +24,7 @@ class PurchaseOrderService {
       "total": ProductService.totalbuy,
     });
     saveToLocalStorage();
-    //mengupdate stock
+    // //mengupdate stock
     for (var product in productList) {
       ProductService.addStock(
         id: product["id"],
