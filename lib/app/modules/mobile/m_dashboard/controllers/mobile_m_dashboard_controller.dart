@@ -22,7 +22,7 @@ class MobileMDashboardController extends GetxController {
   RxBool isLoad = false.obs;
   RxBool isClearData = false.obs;
   RxBool isClearCategories = false.obs;
-  String? productName;
+  String? categorieName;
 
   @override
   void onInit() {
@@ -133,21 +133,21 @@ class MobileMDashboardController extends GetxController {
         AppInputText(
           label: "Add Categories",
           validator: Validator.required,
-          value: productName,
+          value: categorieName,
           onChanged: (value) {
-            productName = value;
+            categorieName = value;
           },
         ),
       ],
     );
     if (r == true) {
-      if (productName == null) {
+      if (categorieName == null) {
       } else {
         CategoriesService.addCategorie(
-          label: productName!,
+          label: categorieName!,
         );
         refresh();
-        productName = null;
+        categorieName = null;
       }
       if (isClearCategories.value == true) {
         CategoriesService.clearCategories();

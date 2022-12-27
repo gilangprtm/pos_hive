@@ -24,11 +24,6 @@ class MobileMProductFormController extends GetxController {
   int? stock;
   RxBool isEditMode = false.obs;
   RxBool isDetail = false.obs;
-  // RxString menuButton = "".obs;
-
-  // bool get isEditMode {
-  //   return widget.item != null;
-  // }
 
   void checkNullContent() {
     if (photo == null ||

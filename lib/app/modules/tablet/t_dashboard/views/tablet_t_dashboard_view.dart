@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:pos_hive/app/utils/extension/box_extension.dart';
 
+import '../../../../service/categories_service/categories_service.dart';
 import '../../../../utils/helpers/helpers.dart';
+import '../../../../utils/theme/theme.dart';
 import '../controllers/tablet_t_dashboard_controller.dart';
 
 class TabletTDashboardView extends GetView<TabletTDashboardController> {
@@ -79,7 +82,7 @@ class TabletTDashboardView extends GetView<TabletTDashboardController> {
                       (index) {
                         var item = c.menus[index];
 
-                        var size = constraint.biggest.width / 5;
+                        var size = constraint.biggest.width / 6;
 
                         return Container(
                           padding: EdgeInsets.all(5),
@@ -105,7 +108,7 @@ class TabletTDashboardView extends GetView<TabletTDashboardController> {
                               children: [
                                 Image.asset(
                                   item["icon"],
-                                  width: 30.0,
+                                  width: 60.0,
                                 ),
                                 const SizedBox(
                                   height: 6.0,
@@ -115,7 +118,7 @@ class TabletTDashboardView extends GetView<TabletTDashboardController> {
                                   textAlign: TextAlign.center,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                    fontSize: 11.0,
+                                    fontSize: 13.0,
                                     // color: AppColor.lightgrey,
                                   ),
                                 ),
@@ -128,6 +131,75 @@ class TabletTDashboardView extends GetView<TabletTDashboardController> {
                   );
                 },
               ),
+              30.heightBox,
+              Text("Categories"),
+              Obx(() {
+                return controller.isLoad.value == false
+                    ? Center(
+                        child: CircularProgressIndicator(
+                        color: AppColor.primary,
+                      ))
+                    : GridView.builder(
+                        // scrollDirection: Axis.horizontal,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 10,
+                          mainAxisSpacing: 1,
+                          crossAxisSpacing: 1,
+                        ),
+                        itemCount: CategoriesService.categories.length,
+                        shrinkWrap: true,
+                        physics: const ScrollPhysics(),
+                        itemBuilder: (BuildContext context, int index) {
+                          var size = context.width / 4;
+                          var item = CategoriesService.categories[index];
+                          return Container(
+                            padding: EdgeInsets.all(5),
+                            width: size,
+                            height: size,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: AppHelper.cicularRadius,
+                                ),
+                                // foregroundColor: Colors.blueGrey,
+                                animationDuration:
+                                    const Duration(milliseconds: 1000),
+                                // backgroundColor: AppColor.grey1,
+                                // splashFactory: InkSplash.splashFactory,
+                                shadowColor: Colors.transparent,
+                                elevation: 0.0,
+                              ),
+                              onPressed: () {
+                                c.productCategories(item['label']);
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    item["icon"],
+                                    width: 30.0,
+                                  ),
+                                  const SizedBox(
+                                    height: 6.0,
+                                  ),
+                                  Text(
+                                    "${item["label"]}",
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontSize: 14.0,
+                                      // color: AppColor.lightgrey,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+              }),
             ],
           ),
         ),
